@@ -1,0 +1,14 @@
+# Compilación
+/target/
+
+# IDEs
+/.idea/
+/.vscode/
+*.iml
+
+# Sistema
+.DS_Store
+*.log
+
+# Base de datos local
+*.db
