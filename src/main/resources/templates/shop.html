@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda</title>
+    <style>
+        body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#f5f6fa}
+        header{background:#2E7D32;color:#fff;padding:12px 16px}
+        .container{max-width:900px;margin:16px auto;padding:0 16px}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+        .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+        .btn{display:inline-block;padding:10px 14px;background:#2E7D32;color:#fff;border:none;border-radius:10px;cursor:pointer}
+    </style>
+</head>
+<body>
+<header>Tienda de la Peña</header>
+<div class="container">
+    <div class="grid">
+        <div class="card" th:each="p : ${products}">
+            <h3 th:text="${p.name}">Producto</h3>
+            <p><strong th:text="${#numbers.formatDecimal(p.price,1,2)} + ' €'">10,00 €</strong></p>
+            <form action="/cart/add" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="type" th:value="${p.type}">
+                <button class="btn" type="submit">Añadir al carrito</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito</title>
+    <style>
+        body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#f5f6fa}
+        header{background:#2E7D32;color:#fff;padding:12px 16px}
+        .container{max-width:900px;margin:16px auto;padding:0 16px}
+        table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+        th,td{padding:10px;border-bottom:1px solid #e9ecef;text-align:left}
+        .btn{display:inline-block;padding:10px 14px;background:#2E7D32;color:#fff;border:none;border-radius:10px;cursor:pointer}
+        .btn.muted{background:#6c757d}
+        .right{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+    </style>
+</head>
+<body>
+<header>Carrito</header>
+<div class="container">
+    <table>
+        <thead><tr><th>Producto</th><th>Precio</th></tr></thead>
+        <tbody>
+        <tr th:each="i : ${cart}">
+            <td th:text="${i.name}">Producto</td>
+            <td th:text="${#numbers.formatDecimal(i.price,1,2)} + ' €'">10,00 €</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(cart)}"><td colspan="2">Tu carrito está vacío.</td></tr>
+        </tbody>
+        <tfoot>
+        <tr><th>Total</th><th th:text="${#numbers.formatDecimal(total,1,2)} + ' €'">0,00 €</th></tr>
+        </tfoot>
+    </table>
+    <div class="right">
+        <form action="/shop" method="get"><button class="btn muted" type="submit">Seguir comprando</button></form>
+        <form action="/cart/clear" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button class="btn muted" type="submit">Vaciar</button>
+        </form>
+        <form action="/payment" method="get">
+            <button class="btn" type="submit">Proceder al pago</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

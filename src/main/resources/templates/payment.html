@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pago seguro</title>
+    <style>
+        body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#f5f6fa}
+        header{background:#2E7D32;color:#fff;padding:12px 16px}
+        .container{max-width:700px;margin:16px auto;padding:0 16px}
+        .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+        .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        label{display:block;font-weight:600;margin-top:8px}
+        input{width:100%;padding:9px;border:1px solid #ced4da;border-radius:8px;box-sizing:border-box;max-width:100%}
+        .btn{display:inline-block;padding:10px 14px;background:#2E7D32;color:#fff;border:none;border-radius:10px;cursor:pointer;margin-top:12px}
+        .err{background:#f8d7da;color:#842029;padding:10px;border-radius:10px;margin-bottom:10px}
+        table{width:100%;border-collapse:collapse;margin-top:8px}
+        th,td{padding:8px;border-bottom:1px solid #e9ecef;text-align:left}
+    </style>
+</head>
+<body>
+<header>Pago</header>
+<div class="container">
+    <div class="card">
+        <h3>Resumen</h3>
+        <table>
+            <thead><tr><th>Producto</th><th>Precio</th></tr></thead>
+            <tbody>
+            <tr th:each="i : ${cart}">
+                <td th:text="${i.name}">Producto</td>
+                <td th:text="${#numbers.formatDecimal(i.price,1,2)} + ' €'">10,00 €</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(cart)}"><td colspan="2">Tu carrito está vacío.</td></tr>
+            </tbody>
+            <tfoot><tr><th>Total</th><th th:text="${#numbers.formatDecimal(total,1,2)} + ' €'">0,00 €</th></tr></tfoot>
+        </table>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+        <h3>Datos de la tarjeta</h3>
+        <div th:if="${error}" class="err" th:text="${error}">Error</div>
+        <form method="post" action="/payment/charge">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <label>Número de tarjeta</label>
+            <input name="cardNumber" placeholder="4242 4242 4242 4242" autocomplete="cc-number" inputmode="numeric">
+            <div class="row">
+                <div>
+                    <label>Caducidad (MM/AA)</label>
+                    <input name="expiry" placeholder="12/27" autocomplete="cc-exp">
+                </div>
+                <div>
+                    <label>CVC</label>
+                    <input name="cvc" placeholder="123" autocomplete="cc-csc" inputmode="numeric">
+                </div>
+            </div>
+            <button class="btn" type="submit">Pagar ahora</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de abonado</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root{--green:#2E7D32; --white:#ffffff;}
+        body{margin:0; background:var(--green); font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--white);}
+        .card{max-width:520px; margin:60px auto; background:var(--white); color:var(--green); padding:22px; border-radius:14px; box-shadow:0 12px 36px rgba(0,0,0,.08)}
+        .logo{height:56px; width:auto; max-width:100%; margin-bottom:10px;}
+        input{width:100%; padding:12px; margin:6px 0 12px; border:1px solid var(--green); border-radius:10px; font-size:16px; color:var(--green)}
+        .btn{width:100%; padding:12px; background:var(--green); color:var(--white); border:none; border-radius:10px; font-size:16px; cursor:pointer}
+        .err{background:var(--white); color:var(--green); padding:10px 12px; border:1px solid var(--green); border-radius:10px; margin-bottom:12px}
+        label{font-weight:600; color:var(--green)}
+        a{color:var(--green); text-decoration:none}
+    </style>
+</head>
+<body>
+<div class="card">
+    <img class="logo" th:src="@{/escudobetis.png}" alt="Escudo Real Betis">
+    <h2 style="margin-top:0">Hazte abonado</h2>
+    <p>Completa tus datos. Podrás pagar la cuota del mes desde tu área personal una vez te registres.</p>
+
+    <div th:if="${error}" class="err" th:text="${error}">Error</div>
+
+    <form method="post" action="/register">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <label>Nombre completo</label>
+        <input type="text" name="name" required>
+        <label>Teléfono</label>
+        <input type="text" name="phone" required>
+        <label>Email de contacto</label>
+        <input type="email" name="email" required>
+        <label>Dirección</label>
+        <input type="text" name="address" required>
+        <label>Email (usuario)</label>
+        <input type="email" name="username" required>
+        <label>Contraseña</label>
+        <input type="password" name="password" required>
+        <button class="btn" type="submit">Crear cuenta</button>
+    </form>
+</div>
+</body>
+</html>

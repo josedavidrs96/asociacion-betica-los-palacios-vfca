@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New member</title>
+    <style>
+        body { font-family: system-ui, Arial, sans-serif; background:#f5f6fa; margin:0; }
+        .card { max-width: 640px; margin:40px auto; background:white; padding:24px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.08); }
+        .row { margin-bottom: 12px; }
+        label { display:block; font-weight:600; margin-bottom:6px; }
+        input { width:100%; padding:9px; border-radius:8px; border:1px solid #ced4da; font-size:15px; box-sizing:border-box; max-width:100%; }
+        .actions { display:flex; gap:12px; margin-top:16px; }
+        .btn { padding:11px 18px; border-radius:10px; border:none; background:#2E7D32; color:white; font-size:16px; cursor:pointer; }
+        a.link { text-decoration:none; padding:12px 18px; border-radius:10px; background:#6c757d; color:white; }
+        .muted{color:#6c757d}
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>Alta de abonado</h2>
+    <p class="muted">Tras el alta, el acceso se habilitará cuando se verifique el email y domicilio.</p>
+    <form action="/members/new" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <div class="row">
+            <label for="fullName">Nombre completo</label>
+            <input id="fullName" name="fullName" required>
+        </div>
+        <div class="row">
+            <label for="phone">Teléfono (WhatsApp)</label>
+            <input id="phone" name="phone" placeholder="+34..." required>
+        </div>
+        <div class="row">
+            <label for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email" placeholder="correo@dominio.com" required>
+        </div>
+        <div class="row">
+            <label for="address">Domicilio</label>
+            <input id="address" name="address" placeholder="Calle, número, localidad" required>
+        </div>
+        <div class="actions">
+            <button class="btn" type="submit">Guardar</button>
+            <a class="link" href="/">Volver</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
