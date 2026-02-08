@@ -1,21 +1,88 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  --betis-green: #00a752;
+  --betis-dark-green: #008c45;
+  --background-dark: #121212;
+  --surface-dark: #1e1e1e;
+  --text-light: #f5f5f5;
+  --text-secondary: #b0b0b0;
+  --border-color: #333;
+}
+
 body {
-  font-family: sans-serif;
-  margin: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background-color: var(--background-dark);
+  color: var(--text-light);
 }
+
+h1, h2, h3 {
+  color: var(--betis-green);
+  font-weight: 700;
+}
+
 .card {
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  max-width: 400px;
+  background-color: var(--surface-dark);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  margin: 20px auto;
+  border-radius: 12px;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
-input, select, button {
+
+input, select {
   display: block;
   width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
   box-sizing: border-box;
+  background-color: #333;
+  border: 1px solid #555;
+  color: var(--text-light);
+  border-radius: 6px;
+  font-size: 1rem;
 }
-.ok { color: green; font-weight: bold; }
-.bad { color: red; font-weight: bold; }
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--betis-green);
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  background-color: var(--betis-green);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--betis-dark-green);
+}
+
+.ok {
+  color: #4caf50;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 6px;
+}
+
+.bad {
+  color: #f44336;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(244, 67, 54, 0.1);
+  border-radius: 6px;
+}
