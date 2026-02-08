@@ -8,61 +8,47 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterOutlet, CommonModule],
   template: `
-    <header class="header">
-      <div class="header-content">
-        <img src="/assets/betis-logo.png" alt="Logo Betis" class="logo">
-        <h1>Peña Bética Los Palacios</h1>
-        <div *ngIf="auth.user() as u" class="user-info">
-          <span>Hola, {{ u.username }} ({{ u.role }})</span>
-          <button (click)="logout()">Salir</button>
-        </div>
+    <div class="header">
+      <div class="title-container">
+        <img src="https://assets.stickpng.com/images/584ad18b5503e5a2c307e020.png" alt="Logo Real Betis" class="logo">
+        <h1>Asociación Bética Los Palacios</h1>
       </div>
-    </header>
-    <main class="main-content">
-      <router-outlet></router-outlet>
-    </main>
+      <div *ngIf="auth.user() as u" class="user-info">
+        <span>Hola, {{ u.username }} ({{ u.role }})</span>
+        <button (click)="logout()">Salir</button>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
   `,
   styles: [`
-    .header { 
-      background-color: var(--surface-dark);
-      padding: 15px 30px;
-      border-bottom: 2px solid var(--betis-green);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-    .header-content {
-      display: flex; 
-      justify-content: space-between; 
+    .header {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 20px;
+      margin-bottom: 20px;
+    }
+    .title-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
     .logo {
       height: 50px;
-      margin-right: 20px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      flex-grow: 1;
     }
     .user-info {
       display: flex;
       align-items: center;
       gap: 15px;
     }
-    .user-info button {
+    button {
       width: auto;
-      padding: 8px 16px;
-      background-color: transparent;
-      border: 1px solid var(--betis-green);
-      color: var(--betis-green);
+      margin: 0;
+      padding: 8px 15px;
     }
-    .user-info button:hover {
-      background-color: var(--betis-green);
-      color: white;
-    }
-    .main-content {
-      padding: 20px;
+    h1 {
+      font-size: 1.5rem;
     }
   `]
 })
