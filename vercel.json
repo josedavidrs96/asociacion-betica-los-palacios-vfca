@@ -1,5 +1,5 @@
 {
-  "outputDirectory": "frontend/dist/asociacion-betica-los-palacios-frontend/browser",
+  "outputDirectory": "frontend/dist/asociacion-betica-los-palacios-frontend",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
