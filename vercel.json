@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/frontend/dist/asociacion-betica-los-palacios-frontend/browser/index.html" }
+  ]
+}

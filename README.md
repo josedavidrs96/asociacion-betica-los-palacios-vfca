@@ -1,34 +1,66 @@
-# Asociación Bética Los Palacios VFCA
+# Asociación Bética Los Palacios - Sistema de Gestión de Pases
 
-Aplicación para la gestión de socios y transporte en autobús de la Peña Bética de Los Palacios y Villafranca.
+Este proyecto es una aplicación web para gestionar pases de autobús y su validación mediante códigos QR.
+Está diseñado para desplegarse en **Vercel** utilizando una arquitectura serverless.
 
-## Despliegue en Vercel (modo "todo Vercel")
-- **Angular (Standalone SPA)** en `frontend/`, compila a `/public`
-- **API serverless** en `/api`
-- **Base de datos**: Vercel Postgres (Storage)
+## Estructura del Proyecto
 
-> El backend Spring Boot/SQLite queda como **legado** y no se usa para el despliegue en Vercel.
+- `frontend/`: Aplicación Angular (SPA).
+- `api/`: Funciones serverless (Node.js/TypeScript) que actúan como backend.
+- `db/`: Esquema de la base de datos (PostgreSQL).
 
-## Roles
-- `ADMIN`: gestión completa
-- `VALIDATOR`: validación de pases (móvil del bus)
-- `ABONADO`: reservado para evolución futura
+## Requisitos
 
-## Requisitos en Vercel (obligatorio)
-1. Storage → **Postgres** → crea DB y conéctala al proyecto
-2. Ejecuta `db/schema.sql` en la consola de queries de la DB
-3. Variables de entorno:
-   - `AUTH_JWT_SECRET` = `<<pon-un-secreto-largo-aqui>>`
+- Node.js 18+
+- Cuenta en Vercel (para despliegue y base de datos Postgres/Neon).
 
-## Desarrollo local
-Instalar dependencias:
+## Configuración Local
 
-## Cómo ejecutar
-```bash
-mvn spring-boot:run
-```
+1.  **Instalar dependencias:**
+    ```bash
+    npm install
+    cd frontend
+    npm install
+    cd ..
+    ```
 
-## Próximos pasos
-- Añadir interfaz web sencilla para administración
-- Generación de QR para usuarios
-- Control de accesos en autobús
+2.  **Configurar variables de entorno:**
+    Crea un archivo `.env` en la raíz con las siguientes variables (obtenidas de Vercel):
+    ```env
+    POSTGRES_URL="..."
+    POSTGRES_PRISMA_URL="..."
+    POSTGRES_URL_NO_SSL="..."
+    POSTGRES_URL_NON_POOLING="..."
+    POSTGRES_USER="..."
+    POSTGRES_HOST="..."
+    POSTGRES_PASSWORD="..."
+    POSTGRES_DATABASE="..."
+    AUTH_JWT_SECRET="tu_secreto_super_seguro_para_jwt"
+    ```
+
+3.  **Ejecutar en desarrollo:**
+    Utiliza Vercel CLI para simular el entorno serverless localmente:
+    ```bash
+    npx vercel dev
+    ```
+    La aplicación estará disponible en `http://localhost:3000`.
+
+## Despliegue
+
+El proyecto está configurado para desplegarse automáticamente en Vercel al hacer push a la rama principal.
+Asegúrate de configurar las variables de entorno en el panel de Vercel.
+
+## Funcionalidades
+
+- **Login:** Acceso para Administradores y Validadores.
+- **Admin:**
+    - Gestión de usuarios (crear otros admins o validadores).
+    - Generación de pases (códigos únicos).
+    - Visualización de pases y su estado.
+- **Validación:**
+    - Interfaz para validar códigos de pases.
+    - Control de usos restantes y caducidad.
+
+## Base de Datos
+
+El esquema se encuentra en `db/DatabaseSchema.sql`. Debe ejecutarse en la base de datos Postgres conectada al proyecto Vercel.

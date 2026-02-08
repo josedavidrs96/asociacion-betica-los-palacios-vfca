@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
-import { mustGetEnv } from "./env.js";
+import { mustGetEnv } from "./getEnvVarOrThrow.js";
 
 const encoder = new TextEncoder();
 

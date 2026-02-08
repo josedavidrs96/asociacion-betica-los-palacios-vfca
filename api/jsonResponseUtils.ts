@@ -1,17 +1,17 @@
-export function json(res: any, status: number, body: unknown) {
-  res.statusCode = status;
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.end(JSON.stringify(body));
+export function json(res: any, status: number, data: any) {
+  res.status(status).json(data);
 }
 
-export async function readJson(req: any): Promise<any> {
-  const chunks: Buffer[] = [];
-  for await (const c of req) chunks.push(Buffer.from(c));
-  const raw = Buffer.concat(chunks).toString("utf8");
-  if (!raw) return {};
-  try {
-    return JSON.parse(raw);
-  } catch {
-    throw new Error("BAD_JSON");
-  }
+export function readJson(req: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    req.on("data", (chunk: any) => (body += chunk));
+    req.on("end", () => {
+      try {
+        resolve(JSON.parse(body));
+      } catch (e) {
+        reject(e);
+      }
+    });
+  });
 }

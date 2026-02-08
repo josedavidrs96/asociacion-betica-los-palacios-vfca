@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vercel dev",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "postinstall": "npm --prefix frontend install",
     "build": "npm run frontend:build",
     "frontend:install": "npm --prefix frontend install",
     "frontend:build": "npm --prefix frontend run build"

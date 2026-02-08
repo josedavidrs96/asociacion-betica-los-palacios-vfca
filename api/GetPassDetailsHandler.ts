@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
-import { json, readJson } from "../_lib/http.js";
-import { requireRole, verifyToken } from "../_lib/auth.js";
+import { json, readJson } from "./jsonResponseUtils.js";
+import { requireRole, verifyToken } from "./AuthTokenManagement.js";
 
 export default async function handler(req: any, res: any) {
   const user = await verifyToken(req.headers.authorization);

@@ -1,8 +1,0 @@
-body { font-family: system-ui, Arial; margin: 0; background: #fafafa; }
-.container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
-.card { background: white; border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; margin: 12px 0; }
-input, button { width: 100%; padding: 10px; margin: 6px 0; }
-.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.ok { color: #0a7; }
-.bad { color: #c33; }
-a { color: #0b57d0; text-decoration: none; }
