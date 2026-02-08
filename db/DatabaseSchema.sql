@@ -1,0 +1,39 @@
+CREATE TABLE IF NOT EXISTS users (
+  id BIGSERIAL PRIMARY KEY,
+  username TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  role TEXT NOT NULL DEFAULT 'ADMIN',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS members (
+  id BIGSERIAL PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  phone TEXT,
+  email TEXT,
+  address TEXT,
+  email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+  address_verified BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS passes (
+  id BIGSERIAL PRIMARY KEY,
+  member_id BIGINT REFERENCES members(id) ON DELETE CASCADE,
+  code TEXT UNIQUE NOT NULL,
+  total_uses INT NOT NULL DEFAULT 5,
+  used_count INT NOT NULL DEFAULT 0,
+  active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS ride_uses (
+  id BIGSERIAL PRIMARY KEY,
+  pass_id BIGINT REFERENCES passes(id) ON DELETE CASCADE,
+  used_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  validator_username TEXT,
+  result TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_passes_member_id ON passes(member_id);
+CREATE INDEX IF NOT EXISTS idx_ride_uses_pass_id ON ride_uses(pass_id);
